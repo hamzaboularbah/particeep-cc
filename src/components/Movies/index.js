@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import Movies from "./Movies";
+import { connect } from "react-redux";
+import { paginate } from "../../utils/paginate";
 import {
   getMovies,
   getCategories,
-  filterMovies
+  filterMovies,
+  changePage
 } from "../../actions/actionCreators";
-import { connect } from "react-redux";
 
 let MoviesContainer = props => {
   useEffect(() => {
@@ -17,20 +19,33 @@ let MoviesContainer = props => {
     props.filterMovies(category);
   };
 
-  const { movies, categories } = props;
-  const filteredMovies = props.filterCriteria
-    ? movies.filter(movie => movie.category == props.filterCriteria)
+  let onPageChange = page => {
+    props.changePage(page);
+  };
+  const { movies, categories, filterCriteria, currentPage, pageSize } = props;
+  const filteredMovies = filterCriteria
+    ? movies.filter(movie => movie.category === filterCriteria)
     : movies;
+
   return (
     <Movies
+      currentPage={currentPage}
+      pageSize={pageSize}
+      onPageChange={onPageChange}
       onFilter={filterByCategory}
       categories={categories}
+      paginatedMovies={paginate(filteredMovies, currentPage, pageSize)}
       movies={filteredMovies}
     />
   );
 };
 
-const mapDispatchToProps = { getMovies, getCategories, filterMovies };
+const mapDispatchToProps = {
+  getMovies,
+  getCategories,
+  filterMovies,
+  changePage
+};
 
 const mapStateToProps = state => {
   return state;

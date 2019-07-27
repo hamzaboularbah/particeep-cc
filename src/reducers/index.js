@@ -1,11 +1,15 @@
 import t from "../actions/actionTypes";
-import { timeout } from "q";
 
 const initialeState = {};
 export default (state = initialeState, action) => {
   switch (action.type) {
     case t.GET_MOVIES:
-      return { ...state, movies: [...action.payload] };
+      return {
+        ...state,
+        movies: [...action.payload],
+        currentPage: 1,
+        pageSize: 4
+      };
 
     case t.GET_CATEGORIES:
       return { ...state, categories: action.payload };
@@ -45,6 +49,11 @@ export default (state = initialeState, action) => {
               }
             : movie
         )
+      };
+    case t.CHANGE_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload
       };
     case t.DELETE_MOVIE:
       return {

@@ -1,6 +1,5 @@
 import { movies$ } from "../data/movies";
 import t from "./actionTypes";
-import actionTypes from "./actionTypes";
 
 export const getMovies = () => {
   return dispatch => {
@@ -55,5 +54,11 @@ export const deleteMovie = id => {
   return {
     type: t.DELETE_MOVIE,
     payload: id
+  };
+};
+export const changePage = page => {
+  return {
+    type: t.CHANGE_PAGE,
+    payload: page
   };
 };
