@@ -23,7 +23,6 @@ let MoviesContainer = props => {
     : movies;
   return (
     <Movies
-      filterCriteria={props.filterCriteria ? props.filterCriteria : null}
       onFilter={filterByCategory}
       categories={categories}
       movies={filteredMovies}
