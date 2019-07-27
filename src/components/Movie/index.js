@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Movie from "./Movie";
 import { connect } from "react-redux";
 import {

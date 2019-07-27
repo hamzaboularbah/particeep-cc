@@ -1,6 +1,7 @@
 import React from "react";
 import Movie from "../Movie";
 import styled from "styled-components";
+import Pagination from "../common/Pagination";
 
 const Navbar = styled.nav`
   margin-top: 20px;
@@ -18,7 +19,15 @@ const MoviesItem = styled.div`
   min-width: 300px;
 `;
 
-let Movies = ({ movies, categories, onFilter }) => {
+let Movies = ({
+  movies,
+  paginatedMovies,
+  categories,
+  onFilter,
+  onPageChange,
+  currentPage,
+  pageSize
+}) => {
   if (movies && categories) {
     return (
       <React.Fragment>
@@ -36,12 +45,18 @@ let Movies = ({ movies, categories, onFilter }) => {
           </div>
         </Navbar>
         <MoviesList className="columns">
-          {movies.map((movie, i) => (
+          {paginatedMovies.map((movie, i) => (
             <MoviesItem key={i} className="column is-one-quarter">
               <Movie movie={movie} />
             </MoviesItem>
           ))}
         </MoviesList>
+        <Pagination
+          itemCount={movies.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+        />
       </React.Fragment>
     );
   }
