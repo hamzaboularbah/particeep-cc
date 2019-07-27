@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Movie from "./Movie";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { likeMovie, disLikeMovie } from "../../actions/actionCreators";
+import {
+  likeMovie,
+  disLikeMovie,
+  deleteMovie,
+  getCategories
+} from "../../actions/actionCreators";
 
 let MovieContainer = props => {
   let onLikeMovie = id => {
@@ -11,16 +15,25 @@ let MovieContainer = props => {
   let onDislikeLikeMovie = id => {
     props.disLikeMovie(id);
   };
+  let onDeleteMovie = id => {
+    props.deleteMovie(id, getCategories);
+  };
   return (
     <Movie
       onDislike={onDislikeLikeMovie}
       onLike={onLikeMovie}
+      onDelete={onDeleteMovie}
       movie={props.movie}
     />
   );
 };
 
-const mapDispatchToProps = { likeMovie, disLikeMovie };
+const mapDispatchToProps = {
+  likeMovie,
+  disLikeMovie,
+  deleteMovie,
+  getCategories
+};
 
 const mapStateToProps = state => {
   return state;

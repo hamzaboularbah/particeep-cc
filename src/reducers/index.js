@@ -1,4 +1,5 @@
 import t from "../actions/actionTypes";
+import { timeout } from "q";
 
 const initialeState = {};
 export default (state = initialeState, action) => {
@@ -44,6 +45,11 @@ export default (state = initialeState, action) => {
               }
             : movie
         )
+      };
+    case t.DELETE_MOVIE:
+      return {
+        ...state,
+        movies: state.movies.filter(movie => movie.id !== action.payload)
       };
     default:
       return state;

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Movies from "./Movies";
-import { bindActionCreators } from "redux";
 import {
   getMovies,
   getCategories,
