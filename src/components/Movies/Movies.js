@@ -31,7 +31,6 @@ let Movies = ({
   paginatedMovies,
   categories,
   onFilter,
-  filterCriteria,
   onPageChange,
   currentPage,
   pageSize,
@@ -42,13 +41,19 @@ let Movies = ({
       <React.Fragment>
         <Navbar>
           <div className="subtitle is-4">Categories :</div>
-          <div className="select">
+          <div className="select is-multiple">
             <select
-              value={filterCriteria}
-              className="select"
-              onChange={e => onFilter(e.target.value)}
+              multiple
+              defaultValue={["all"]}
+              onChange={e =>
+                onFilter(
+                  Array.prototype.slice
+                    .call(e.target.selectedOptions)
+                    .map(option => option.value)
+                )
+              }
             >
-              <option value="">Tous les films</option>
+              <option value="all">Tous les films</option>
               {categories.map((category, i) => (
                 <option value={category} key={i}>
                   {category}

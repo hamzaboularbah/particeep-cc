@@ -28,8 +28,8 @@ const MoviesContainer = props => {
     getCategories();
   }, [getMovies, getCategories]);
 
-  const filterByCategory = category => {
-    filterMovies(category);
+  const filterByCategory = filters => {
+    filterMovies(filters);
   };
 
   const onPageChange = page => {
@@ -39,13 +39,13 @@ const MoviesContainer = props => {
   const onChangePageSize = size => {
     changePageSize(size);
   };
-  const filteredMovies = filterCriteria
-    ? movies.filter(movie => movie.category === filterCriteria)
-    : movies;
+  const filteredMovies =
+    movies && !filterCriteria.includes("all")
+      ? movies.filter(movie => filterCriteria.includes(movie.category))
+      : movies;
 
   return (
     <Movies
-      filterCriteria={filterCriteria ? filterCriteria : ""}
       currentPage={currentPage}
       pageSize={pageSize}
       onPageChange={onPageChange}
