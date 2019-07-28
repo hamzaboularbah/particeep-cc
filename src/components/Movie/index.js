@@ -15,8 +15,8 @@ let MovieContainer = props => {
   let onDislikeLikeMovie = id => {
     props.disLikeMovie(id);
   };
-  let onDeleteMovie = id => {
-    props.deleteMovie(id, getCategories);
+  let onDeleteMovie = (id, movieCategory) => {
+    props.deleteMovie(id, movieCategory);
   };
   return (
     <Movie

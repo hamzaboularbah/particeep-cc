@@ -1,31 +1,50 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbsUp as fasThumbsUp,
+  faThumbsDown as fasThumbsDown,
+  faTrashAlt
+} from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons";
 
 let Movie = ({ movie, onLike, onDislike, onDelete }) => {
+  const { id, title, category, likes, dislikes, liked, disLiked } = movie;
+  const ratio = Math.ceil((likes / (likes + dislikes)) * 100);
   return (
     <div className="card">
       {/* <figure className="image is-4by3" /> */}
       <div className="card-content">
-        <div className="title is-4">{movie.title}</div>
-        <div className="title is-6">{movie.category}</div>
+        <div className="title is-4">{title}</div>
+        <div className="title is-6">{category}</div>
+        <progress
+          className="progress is-info is-small"
+          value={ratio}
+          max="100"
+        />
       </div>
       <footer className="card-footer">
-        <span className="card-footer-item" onClick={() => onLike(movie.id)}>
-          <i
-            className={movie.liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}
-          />
-          {movie.likes}
+        <span className="card-footer-item" onClick={() => onLike(id)}>
+          {liked ? (
+            <FontAwesomeIcon icon={fasThumbsUp} />
+          ) : (
+            <FontAwesomeIcon icon={faThumbsUp} />
+          )}
+          {likes}
         </span>
 
-        <span className="card-footer-item" onClick={() => onDislike(movie.id)}>
-          <i
-            className={
-              movie.disLiked ? "fas fa-thumbs-down" : "far fa-thumbs-down"
-            }
-          />
-          {movie.dislikes}
+        <span className="card-footer-item" onClick={() => onDislike(id)}>
+          {disLiked ? (
+            <FontAwesomeIcon icon={fasThumbsDown} />
+          ) : (
+            <FontAwesomeIcon icon={faThumbsDown} />
+          )}
+          {dislikes}
         </span>
-        <span className="card-footer-item" onClick={() => onDelete(movie.id)}>
-          <i className="fas fa-trash-alt" />
+        <span
+          className="card-footer-item"
+          onClick={() => onDelete(id, category)}
+        >
+          <FontAwesomeIcon icon={faTrashAlt} />
         </span>
       </footer>
     </div>

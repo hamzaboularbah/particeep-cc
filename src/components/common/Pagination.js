@@ -4,26 +4,27 @@ import _ from "lodash";
 let Pagination = props => {
   const { itemCount, pageSize, currentPage, onPageChange } = props;
   const pagesCount = Math.ceil(itemCount / pageSize);
-  if (pagesCount === 1) return null;
+  if (pagesCount <= 1) return null;
   const pages = _.range(1, pagesCount + 1);
 
   return (
-    <nav className="pagination " role="navigation" aria-label="pagination">
-      <a
-        href="#"
+    <nav
+      className="pagination is-centered"
+      role="navigation"
+      aria-label="pagination"
+    >
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
         className="pagination-previous"
         title="This is the first page"
-        disabled
+        disabled={currentPage === 1}
       >
-        Previous
-      </a>
-      <a href="#" className="pagination-next">
-        Next page
-      </a>
+        Précédent
+      </button>
       <ul className="pagination-list">
         {pages.map(page => (
           <li key={page}>
-            <a
+            <button
               href="#"
               onClick={() => onPageChange(page)}
               className={`pagination-link ${
@@ -31,10 +32,17 @@ let Pagination = props => {
               }`}
             >
               {page}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        className="pagination-next"
+        disabled={currentPage === pagesCount}
+      >
+        Suivant
+      </button>
     </nav>
   );
 };
