@@ -58,7 +58,26 @@ export default (state = initialeState, action) => {
     case t.DELETE_MOVIE:
       return {
         ...state,
-        movies: state.movies.filter(movie => movie.id !== action.payload)
+        movies: state.movies.filter(movie => movie.id !== action.payload.id),
+        categories:
+          state.movies.filter(
+            movie => movie.category === action.payload.category
+          ).length === 1
+            ? state.categories.filter(
+                category => category !== action.payload.category
+              )
+            : state.categories,
+        filterCriteria:
+          state.movies.filter(
+            movie => movie.category === action.payload.category
+          ).length === 1
+            ? ""
+            : state.filterCriteria
+      };
+    case t.CHANGE_PAGE_SIZE:
+      return {
+        ...state,
+        pageSize: action.payload
       };
     default:
       return state;

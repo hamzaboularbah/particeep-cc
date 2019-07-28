@@ -50,15 +50,25 @@ export const disLikeMovie = id => {
   };
 };
 
-export const deleteMovie = id => {
+export const deleteMovie = (id, category) => {
   return {
     type: t.DELETE_MOVIE,
-    payload: id
+    payload: {
+      id,
+      category
+    }
   };
 };
 export const changePage = page => {
   return {
     type: t.CHANGE_PAGE,
     payload: page
+  };
+};
+
+export const changePageSize = size => {
+  return {
+    type: t.CHANGE_PAGE_SIZE,
+    payload: size
   };
 };
