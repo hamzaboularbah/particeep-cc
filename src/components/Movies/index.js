@@ -6,32 +6,50 @@ import {
   getMovies,
   getCategories,
   filterMovies,
-  changePage
+  changePage,
+  changePageSize
 } from "../../actions/actionCreators";
 
-let MoviesContainer = props => {
+const MoviesContainer = props => {
+  const {
+    getMovies,
+    getCategories,
+    filterMovies,
+    changePage,
+    changePageSize,
+    movies,
+    categories,
+    currentPage,
+    pageSize,
+    filterCriteria
+  } = props;
   useEffect(() => {
-    props.getMovies();
-    props.getCategories();
-  }, []);
+    getMovies();
+    getCategories();
+  }, [getMovies, getCategories]);
 
-  let filterByCategory = category => {
-    props.filterMovies(category);
+  const filterByCategory = category => {
+    filterMovies(category);
   };
 
-  let onPageChange = page => {
-    props.changePage(page);
+  const onPageChange = page => {
+    changePage(page);
   };
-  const { movies, categories, filterCriteria, currentPage, pageSize } = props;
+
+  const onChangePageSize = size => {
+    changePageSize(size);
+  };
   const filteredMovies = filterCriteria
     ? movies.filter(movie => movie.category === filterCriteria)
     : movies;
 
   return (
     <Movies
+      filterCriteria={filterCriteria ? filterCriteria : ""}
       currentPage={currentPage}
       pageSize={pageSize}
       onPageChange={onPageChange}
+      onChangePageSize={onChangePageSize}
       onFilter={filterByCategory}
       categories={categories}
       paginatedMovies={paginate(filteredMovies, currentPage, pageSize)}
@@ -44,7 +62,8 @@ const mapDispatchToProps = {
   getMovies,
   getCategories,
   filterMovies,
-  changePage
+  changePage,
+  changePageSize
 };
 
 const mapStateToProps = state => {
