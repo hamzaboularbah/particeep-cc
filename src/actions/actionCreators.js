@@ -29,10 +29,10 @@ export const getCategories = () => {
   };
 };
 
-export const filterMovies = category => {
+export const filterMovies = filters => {
   return {
     type: t.FILTER_MOVIES,
-    payload: category
+    payload: filters
   };
 };
 

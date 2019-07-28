@@ -7,6 +7,7 @@ export default (state = initialeState, action) => {
       return {
         ...state,
         movies: [...action.payload],
+        filterCriteria: ["all"],
         currentPage: 1,
         pageSize: 4
       };
