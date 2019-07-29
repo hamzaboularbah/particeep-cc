@@ -46,6 +46,7 @@ const MoviesContainer = props => {
 
   return (
     <Movies
+      filterCriteria={filterCriteria}
       currentPage={currentPage}
       pageSize={pageSize}
       onPageChange={onPageChange}

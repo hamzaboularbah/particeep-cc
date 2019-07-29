@@ -14,7 +14,10 @@ let Movie = ({ movie, onLike, onDislike, onDelete }) => {
   const ratio = Math.ceil((likes / (likes + dislikes)) * 100);
   return (
     <div className="movie-item">
-      <div onClick={() => onDelete(id)} className="movie-item__delete-btn">
+      <div
+        onClick={() => onDelete(id, category)}
+        className="movie-item__delete-btn"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486.4 486.4">
           <path
             fill="#FFF"
