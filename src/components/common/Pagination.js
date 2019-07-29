@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import "./Pagination.sass";
 
 let Pagination = props => {
   const { itemCount, pageSize, currentPage, onPageChange } = props;
@@ -8,16 +9,12 @@ let Pagination = props => {
   const pages = _.range(1, pagesCount + 1);
 
   return (
-    <nav
-      className="pagination is-centered"
-      role="navigation"
-      aria-label="pagination"
-    >
+    <nav className="pagination" role="navigation">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         className="pagination-previous"
         title="This is the first page"
-        disabled={currentPage === 1}
+        style={{ display: currentPage === 1 ? "none" : "block" }}
       >
         Précédent
       </button>
@@ -25,7 +22,6 @@ let Pagination = props => {
         {pages.map(page => (
           <li key={page}>
             <button
-              href="#"
               onClick={() => onPageChange(page)}
               className={`pagination-link ${
                 page === currentPage ? "is-current" : ""
@@ -39,7 +35,7 @@ let Pagination = props => {
       <button
         onClick={() => onPageChange(currentPage + 1)}
         className="pagination-next"
-        disabled={currentPage === pagesCount}
+        style={{ display: currentPage === pagesCount ? "none" : "block" }}
       >
         Suivant
       </button>
