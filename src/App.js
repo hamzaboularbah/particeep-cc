@@ -3,7 +3,7 @@ import Movies from "./components/Movies";
 
 let App = () => {
   return (
-    <div className="App container">
+    <div style={{ maxWidth: "1290px", margin: "0px auto" }} className="App">
       <Movies />
     </div>
   );

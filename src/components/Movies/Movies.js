@@ -1,30 +1,8 @@
 import React from "react";
 import Movie from "../Movie";
-import styled from "styled-components";
 import Pagination from "../common/Pagination";
-
-const Navbar = styled.nav`
-  margin-top: 20px;
-  display: flex;
-  > div {
-    margin: 0px 20px 0px 0px;
-  }
-`;
-const MoviesList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 500px;
-`;
-const MoviesItem = styled.div`
-  min-width: 300px;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import Select from "react-select";
+import "./Movies.sass";
 
 let Movies = ({
   movies,
@@ -39,44 +17,39 @@ let Movies = ({
   if (movies && categories) {
     return (
       <React.Fragment>
-        <Navbar>
-          <div className="subtitle is-4">Categories :</div>
-          <div className="select is-multiple">
-            <select
-              multiple
-              defaultValue={["all"]}
-              onChange={e =>
+        <div className="filter">
+          <label className="">Catégories</label>
+          <div className="select">
+            <Select
+              styles
+              placeholder="Sélectionner une catégorie"
+              onChange={values => {
+                console.log(values);
                 onFilter(
-                  Array.prototype.slice
-                    .call(e.target.selectedOptions)
-                    .map(option => option.value)
-                )
-              }
-            >
-              <option value="all">Tous les films</option>
-              {categories.map((category, i) => (
-                <option value={category} key={i}>
-                  {category}
-                </option>
-              ))}
-            </select>
+                  !values || values.length === 0
+                    ? "all"
+                    : values.map(option => option.value)
+                );
+              }}
+              isMulti
+              options={categories.map(category => ({
+                value: category,
+                label: category
+              }))}
+            />
           </div>
-        </Navbar>
-        <MoviesList className="columns">
+        </div>
+        <div className="movies-list">
           {paginatedMovies.length === 0 && currentPage === 1 ? (
             <h1>No movies to show</h1>
           ) : paginatedMovies.length === 0 && currentPage > 1 ? (
             onPageChange(currentPage - 1)
           ) : (
-            paginatedMovies.map((movie, i) => (
-              <MoviesItem key={i} className="column is-one-quarter">
-                <Movie movie={movie} />
-              </MoviesItem>
-            ))
+            paginatedMovies.map((movie, i) => <Movie key={i} movie={movie} />)
           )}
-        </MoviesList>
-        <Footer>
-          <div>
+        </div>
+        <div className="footer">
+          <div className="pagination-items">
             <Pagination
               itemCount={movies.length}
               pageSize={pageSize}
@@ -85,25 +58,28 @@ let Movies = ({
             />
           </div>
 
-          <div>
-            Afficher
-            <div className="select">
-              <select
-                onChange={e => onChangePageSize(e.target.value)}
-                defaultValue={pageSize}
-              >
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="12">12</option>
-              </select>
-            </div>
+          <div className="items-by-page">
+            Afficher &nbsp;
+            <select
+              onChange={e => onChangePageSize(e.target.value)}
+              defaultValue={pageSize}
+            >
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="12">12</option>
+            </select>
             <span>&nbsp; films par page</span>
           </div>
-        </Footer>
+        </div>
       </React.Fragment>
     );
   }
-  return null;
+  return (
+    <div className="loader">
+      <div className="spinner" />
+      <div className="loading-message">Chargement des films en cours...</div>
+    </div>
+  );
 };
 
 export default Movies;

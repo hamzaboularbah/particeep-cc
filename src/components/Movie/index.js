@@ -9,21 +9,22 @@ import {
 } from "../../actions/actionCreators";
 
 let MovieContainer = props => {
-  let onLikeMovie = id => {
-    props.likeMovie(id);
+  const { movie, likeMovie, disLikeMovie, deleteMovie } = props;
+  const onLikeMovie = id => {
+    likeMovie(id);
   };
-  let onDislikeLikeMovie = id => {
-    props.disLikeMovie(id);
+  const onDislikeLikeMovie = id => {
+    disLikeMovie(id);
   };
-  let onDeleteMovie = (id, movieCategory) => {
-    props.deleteMovie(id, movieCategory);
+  const onDeleteMovie = (id, movieCategory) => {
+    deleteMovie(id, movieCategory);
   };
   return (
     <Movie
       onDislike={onDislikeLikeMovie}
       onLike={onLikeMovie}
       onDelete={onDeleteMovie}
-      movie={props.movie}
+      movie={movie}
     />
   );
 };

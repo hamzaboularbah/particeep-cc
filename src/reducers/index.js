@@ -60,6 +60,8 @@ export default (state = initialeState, action) => {
       return {
         ...state,
         movies: state.movies.filter(movie => movie.id !== action.payload.id),
+        // On verifie si ce film est le dernier film dans sa catégorie,
+        // si oui : on supprime cette dernière pour qu'elle ne disparait pas à la liste des filtres, et on renitialise filterCriteria
         categories:
           state.movies.filter(
             movie => movie.category === action.payload.category
