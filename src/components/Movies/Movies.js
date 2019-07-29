@@ -12,19 +12,19 @@ let Movies = ({
   onPageChange,
   currentPage,
   pageSize,
+  filterCriteria,
   onChangePageSize
 }) => {
   if (movies && categories) {
+    console.log(filterCriteria);
     return (
       <React.Fragment>
         <div className="filter">
           <label className="">Catégories</label>
           <div className="select">
             <Select
-              styles
               placeholder="Sélectionner une catégorie"
               onChange={values => {
-                console.log(values);
                 onFilter(
                   !values || values.length === 0
                     ? "all"

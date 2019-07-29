@@ -57,6 +57,10 @@ export default (state = initialeState, action) => {
         currentPage: action.payload
       };
     case t.DELETE_MOVIE:
+      console.log(
+        state.movies.filter(movie => movie.category === action.payload.category)
+          .length
+      );
       return {
         ...state,
         movies: state.movies.filter(movie => movie.id !== action.payload.id),
@@ -74,7 +78,7 @@ export default (state = initialeState, action) => {
           state.movies.filter(
             movie => movie.category === action.payload.category
           ).length === 1
-            ? ""
+            ? "all"
             : state.filterCriteria
       };
     case t.CHANGE_PAGE_SIZE:
